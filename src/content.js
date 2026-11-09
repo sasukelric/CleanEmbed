@@ -192,17 +192,28 @@
     next.focus();
   }
 
+  const copyLinkOf = (items) => items.find((item) => item.querySelector('svg[data-icon="icon-link"]'));
+
+  // Nos options juste sous « Copier le lien » (sinon en fin de menu). Rien n'est déplacé si elles y sont déjà,
+  // ce qui évite une boucle avec l'observateur ci-dessous.
+  function place(menu) {
+    const ours = [...menu.querySelectorAll(`[${MARK}]`)];
+    const items = [...menu.querySelectorAll('[role="menuitem"]')].filter((item) => !item.hasAttribute(MARK));
+    const anchor = copyLinkOf(items) || items[items.length - 1];
+    if (!ours.length || !anchor) return;
+    const inPlace = ours.every((item, i) => (i === 0 ? anchor : ours[i - 1]).nextElementSibling === item);
+    if (!inPlace) anchor.after(...ours);
+  }
+
   function inject(menu, trigger) {
     if (menu.querySelector(`[${MARK}]`)) return;
     const items = [...menu.querySelectorAll('[role="menuitem"]')];
-    const copyLink = items.find((item) => item.querySelector('svg[data-icon="icon-link"]'));
-    const template = copyLink || items[0];
-    let after = copyLink || items[items.length - 1];
-    for (const action of ACTIONS) {
-      const item = makeItem(template, action, trigger);
-      after.after(item);
-      after = item;
-    }
+    const template = copyLinkOf(items) || items[0];
+    menu.append(...ACTIONS.map((action) => makeItem(template, action, trigger)));
+    place(menu);
+    // Une fois connecté, Twitter reconstruit les options du menu juste après l'avoir ouvert : les siennes
+    // s'ajoutent alors après les nôtres. On les replace à chaque changement.
+    new MutationObserver(() => place(menu)).observe(menu, { childList: true, subtree: true });
     menu.addEventListener('keydown', onMenuKeydown, true);
   }
 

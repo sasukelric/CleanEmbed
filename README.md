@@ -34,7 +34,7 @@ Cette extension n'est pas FixupX. Elle ajoute seulement au menu de Twitter un ra
 
 ## Publier
 
-`pwsh scripts/paquet.ps1` fabrique `dist/cleanembed-<version>.zip`. Ce même fichier sert pour toutes les boutiques :
+`pwsh scripts/paquet.ps1` fabrique deux fichiers dans `dist/` : `cleanembed-<version>-firefox.zip` pour Firefox, et `cleanembed-<version>-chrome.zip` pour Chrome et Edge. Ce dernier a le même contenu, sans la clé `browser_specific_settings` propre à Firefox.
 
 - **Firefox** : <https://addons.mozilla.org/developers/>, compte gratuit. L'identifiant Firefox est déjà dans le manifest : c'est un GUID neutre, qui ne doit plus changer une fois l'extension publiée. Pour publier une version dérivée de ce code, le remplacer par un nouvel identifiant. Le choix « Sur ce site » rend l'extension publique ; « Par vous-même » la signe pour un usage personnel.
 - **Chrome** : <https://chrome.google.com/webstore/devconsole>, inscription unique de 5 $.

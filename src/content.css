@@ -4,6 +4,13 @@
   background-color: var(--x-hover-subtle, rgba(127, 127, 127, 0.12));
 }
 
+/* Nos icônes sont dessinées au trait : les règles de Twitter qui remplissent les icônes (fill) les rendraient pleines */
+[data-cleanembed] svg,
+[data-cleanembed] svg * {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
 #cleanembed-toast {
   position: fixed;
   left: 50%;
