@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "CleanEmbed",
+    "description": "Extension name, shown in the browser and in the stores."
+  },
+  "extDescription": {
+    "message": "在 Twitter / X 的分享菜单中添加“复制 FixupX 链接”和“直链”。FixupX 是第三方服务（FxEmbed）。",
+    "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
+  }
+}

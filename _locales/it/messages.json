@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "CleanEmbed",
+    "description": "Extension name, shown in the browser and in the stores."
+  },
+  "extDescription": {
+    "message": "Aggiunge «Copia link FixupX» e «link diretto» al menu Condividi di Twitter / X. FixupX è un servizio di terzi (FxEmbed).",
+    "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
+  }
+}

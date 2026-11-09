@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "CleanEmbed",
+    "description": "Extension name, shown in the browser and in the stores."
+  },
+  "extDescription": {
+    "message": "Menambahkan “Salin tautan FixupX” dan “tautan langsung” ke menu Bagikan Twitter / X. FixupX adalah layanan pihak ketiga (FxEmbed).",
+    "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
+  }
+}

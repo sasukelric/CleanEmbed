@@ -1,0 +1,40 @@
+/* Survol et focus de nos options : même couleur que les options de Twitter (variable de son thème) */
+[data-cleanembed]:hover,
+[data-cleanembed]:focus-visible {
+  background-color: var(--x-hover-subtle, rgba(127, 127, 127, 0.12));
+}
+
+#cleanembed-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 2147483647;
+  max-width: calc(100vw - 32px);
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgb(29, 155, 240);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+#cleanembed-toast.cleanembed-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#cleanembed-toast.cleanembed-error {
+  background: rgb(244, 33, 46);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cleanembed-toast {
+    transition: none;
+  }
+}
