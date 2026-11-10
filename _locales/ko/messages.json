@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Twitter / X 공유 메뉴에 ‘FixupX 링크 복사’와 ‘직접 링크’를 추가합니다. FixupX는 제3자 서비스입니다(FxEmbed).",
+    "message": "Twitter / X 공유 메뉴에 모든 FixupX 링크(직접, 갤러리, 텍스트, 모자이크, 번역 등)를 추가합니다. FixupX는 제3자 서비스입니다.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

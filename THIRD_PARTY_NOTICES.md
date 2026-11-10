@@ -1,9 +1,17 @@
 # Mentions tierces
 
-Les deux icônes des options du menu (`src/content.js`, constante `ICONS`) reprennent des dessins de [Lucide](https://lucide.dev) :
+Les icônes des options du menu et de la page de réglages (`src/icons.js`, constante `ICONS`) reprennent des dessins de [Lucide](https://lucide.dev) :
 
-- `link` : icône de Lucide issue de [Feather](https://feathericons.com), sous licence MIT (ci-dessous) ;
-- `square-play` : icône de Lucide, sous licence ISC (ci-dessous).
+| Option | Icône Lucide | Licence |
+|---|---|---|
+| lien FixupX | `link`, issue de [Feather](https://feathericons.com) | MIT (Feather) et ISC (Lucide) |
+| lien direct | `square-play` | ISC |
+| galerie | `image` | ISC |
+| texte seul | `text-align-start` | ISC |
+| mosaïque | `layout-grid` | ISC |
+| traduit | `languages` | ISC |
+| Instant View | `zap` | ISC |
+| ancien style | `rotate-ccw` | ISC |
 
 ## Lucide (ISC)
 

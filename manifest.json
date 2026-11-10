@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "description": "__MSG_extDescription__",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "default_locale": "en",
   "browser_specific_settings": {
     "gecko": {
@@ -22,6 +22,20 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "CleanEmbed",
+    "default_popup": "options/options.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
   "content_scripts": [
     {
       "matches": [
@@ -30,7 +44,7 @@
         "https://mobile.x.com/*",
         "https://mobile.twitter.com/*"
       ],
-      "js": ["src/i18n.js", "src/links.js", "src/content.js"],
+      "js": ["src/i18n.js", "src/links.js", "src/icons.js", "src/settings.js", "src/content.js"],
       "css": ["src/content.css"],
       "run_at": "document_idle"
     }

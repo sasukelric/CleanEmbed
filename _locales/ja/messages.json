@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Twitter / X の共有メニューに「FixupXのリンクをコピー」と「直接リンク」を追加します。FixupX は第三者のサービスです（FxEmbed）。",
+    "message": "Twitter / X の共有メニューに FixupX のすべてのリンク（直接・ギャラリー・テキスト・モザイク・翻訳など）を追加します。FixupX は第三者のサービスです。",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

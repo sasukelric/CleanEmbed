@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "يضيف «نسخ رابط FixupX» و«الرابط المباشر» إلى قائمة المشاركة في Twitter / X. ‏FixupX خدمة تابعة لجهة خارجية (FxEmbed).",
+    "message": "يضيف كل روابط FixupX (مباشر، معرض، نص، فسيفساء، مترجم…) إلى قائمة المشاركة في Twitter / X. ‏FixupX خدمة تابعة لجهة خارجية.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

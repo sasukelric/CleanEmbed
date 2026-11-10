@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Twitter / X Paylaş menüsüne “FixupX bağlantısını kopyala” ve “doğrudan bağlantı” ekler. FixupX üçüncü taraf bir hizmettir (FxEmbed).",
+    "message": "Twitter / X Paylaş menüsüne tüm FixupX bağlantılarını (doğrudan, galeri, çeviri…) ekler. FixupX üçüncü taraf bir hizmettir.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

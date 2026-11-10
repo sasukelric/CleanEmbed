@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Adds “Copy FixupX link” and “Copy direct link” to the Twitter / X Share menu. FixupX is a third-party service by FxEmbed.",
+    "message": "Adds all FixupX links (direct, gallery, text, mosaic, translated…) to the Twitter / X Share menu. FixupX is a third-party service.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

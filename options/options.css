@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light dark;
+  --fond: #ffffff;
+  --texte: #0f1419;
+  --secondaire: #536471;
+  --bordure: #eff3f4;
+  --accent: #1d9bf0;
+  --badge: #e8f5fd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #16181c;
+    --texte: #e7e9ea;
+    --secondaire: #8b98a5;
+    --bordure: #2f3336;
+    --badge: #0b2a3f;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  min-width: 320px;
+  max-width: 440px;
+  background: var(--fond);
+  color: var(--texte);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+#titre {
+  margin: 0;
+  color: var(--secondaire);
+  font-size: 13px;
+}
+
+#intro {
+  margin: 12px 0;
+  color: var(--secondaire);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--bordure);
+}
+
+li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--bordure);
+}
+
+input[type="checkbox"] {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: default;
+}
+
+label {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  cursor: pointer;
+}
+
+input:disabled + label {
+  cursor: default;
+}
+
+.icone {
+  flex: none;
+  margin-top: 1px;
+}
+
+.textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nom {
+  font-weight: 600;
+}
+
+.aide {
+  color: var(--secondaire);
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--badge);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  vertical-align: 1px;
+}
+
+#statut {
+  min-height: 20px;
+  margin: 10px 0 0;
+  color: var(--accent);
+  font-weight: 600;
+}

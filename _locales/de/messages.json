@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Fügt „FixupX-Link kopieren“ und „Direktlink“ zum Teilen-Menü von Twitter / X hinzu. FixupX ist ein Drittanbieterdienst (FxEmbed).",
+    "message": "Fügt alle FixupX-Links (direkt, Galerie, übersetzt …) zum Teilen-Menü von Twitter / X hinzu. FixupX ist ein Fremddienst.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

@@ -1,4 +1,5 @@
-// Ajoute « Copier le lien FixupX » et « Copier le lien direct (d.FixupX) » au menu Partager des posts Twitter.
+// Ajoute les liens FixupX (normal, direct, galerie, texte seul, mosaïque, traduit, Instant View, ancien style)
+// au menu Partager des posts Twitter.
 // Repères vérifiés sur x.com le 2026-11-09 (nouvelle interface, menus Base UI), tous indépendants de la langue :
 // - le bouton Partager porte data-engagement-action="share" ;
 // - le menu ([role="menu"]) est relié à son bouton par aria-labelledby ;
@@ -9,26 +10,17 @@
   if (globalThis.__cleanEmbedLoaded) return;
   globalThis.__cleanEmbedLoaded = true;
 
-  const { parseStatus, buildLink, translator } = globalThis.CleanEmbed;
+  const { OPTIONS, parseStatus, linkFor, pickLang, translator, iconSvg, enabledOptions, loadDisabled, onDisabledChange } =
+    globalThis.CleanEmbed;
   const MARK = 'data-cleanembed';
-  const SVG_NS = 'http://www.w3.org/2000/svg';
-  const ACTIONS = [
-    { key: 'fixupx', host: 'fixupx.com', icon: 'link' },
-    { key: 'direct', host: 'd.fixupx.com', icon: 'media' },
-  ];
-  // Icônes 24×24 en traits, d'après Lucide (licence ISC)
-  const ICONS = {
-    link: [
-      ['path', { d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71' }],
-      ['path', { d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71' }],
-    ],
-    media: [
-      ['rect', { x: '3', y: '3', width: '18', height: '18', rx: '2' }],
-      ['path', { d: 'm9 8 6 4-6 4Z' }],
-    ],
-  };
 
-  const t = (key) => translator(document.documentElement.lang, navigator.language)(key);
+  // Options décochées dans les réglages, gardées à jour quand l'utilisateur les change
+  let disabled = [];
+  loadDisabled().then((list) => { disabled = list; }, () => {});
+  onDisabledChange((list) => { disabled = list; });
+
+  const lang = () => pickLang(document.documentElement.lang, navigator.language);
+  const t = (key) => translator(lang())(key);
   let lastShare = null; // dernier bouton Partager pressé, pour un menu qui ne dirait pas à quel bouton il appartient
 
   function isShareTrigger(el) {
@@ -109,37 +101,32 @@
     toastTimer = setTimeout(() => el.classList.remove('cleanembed-visible'), 2500);
   }
 
-  function run(action, trigger) {
+  function run(option, trigger) {
     const status = statusOf(trigger);
     if (!status) {
       closeMenu();
       toast(t('noLink'), true);
       return;
     }
-    const copying = copy(buildLink(status, action.host)); // lancé pendant le clic, tant que le navigateur l'autorise
+    // Traduction vers la langue des textes du menu (« zh-TW » → « zh »)
+    const { url, rare } = linkFor(status, option, lang().slice(0, 2));
+    const copying = copy(url); // lancé pendant le clic, tant que le navigateur l'autorise
     closeMenu();
-    copying.then((ok) => toast(ok ? t('copied') : t('copyFailed'), !ok));
+    copying.then((ok) => {
+      if (!ok) toast(t('copyFailed'), true);
+      else toast(rare ? t('copiedRare').replace('{host}', rare) : t('copied'));
+    });
   }
 
-  function makeIcon(name, model) {
-    const svg = document.createElementNS(SVG_NS, 'svg');
+  // Notre icône, avec les attributs de l'icône de Twitter qu'elle remplace (taille, classes)
+  function makeIcon(key, model) {
+    const attrs = { width: '20', height: '20' };
     if (model) {
       for (const attr of model.attributes) {
-        if (!['data-icon', 'viewBox', 'fill'].includes(attr.name)) svg.setAttribute(attr.name, attr.value);
+        if (!['data-icon', 'viewBox', 'fill'].includes(attr.name)) attrs[attr.name] = attr.value;
       }
-    } else {
-      svg.setAttribute('width', '20');
-      svg.setAttribute('height', '20');
     }
-    const look = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2',
-      'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' };
-    for (const [k, v] of Object.entries(look)) svg.setAttribute(k, v);
-    for (const [tag, attrs] of ICONS[name]) {
-      const shape = document.createElementNS(SVG_NS, tag);
-      for (const [k, v] of Object.entries(attrs)) shape.setAttribute(k, v);
-      svg.append(shape);
-    }
-    return svg;
+    return iconSvg(key, attrs);
   }
 
   function setLabel(item, text) {
@@ -155,22 +142,22 @@
   }
 
   // Copie d'une option de Twitter (mêmes classes, donc même apparence dans tous les thèmes), sans ses identifiants.
-  function makeItem(template, action, trigger) {
+  function makeItem(template, option, trigger) {
     const item = template.cloneNode(true);
     for (const el of [item, ...item.querySelectorAll('[id]')]) el.removeAttribute('id');
     for (const name of ['data-highlighted', 'data-disabled', 'aria-disabled']) item.removeAttribute(name);
-    item.setAttribute(MARK, action.key);
+    item.setAttribute(MARK, option.key);
     item.setAttribute('tabindex', '-1');
-    item.title = t(action.key + 'Hint');
+    item.title = t(option.key + 'Hint');
     const oldIcon = item.querySelector('svg');
-    const icon = makeIcon(action.icon, oldIcon);
+    const icon = makeIcon(option.key, oldIcon);
     if (oldIcon) oldIcon.replaceWith(icon);
     else item.prepend(icon);
-    setLabel(item, t(action.key));
+    setLabel(item, t(option.key));
     const activate = (event) => {
       event.preventDefault();
       event.stopPropagation();
-      run(action, trigger);
+      run(option, trigger);
     };
     item.addEventListener('click', activate);
     item.addEventListener('keydown', (event) => {
@@ -209,7 +196,7 @@
     if (menu.querySelector(`[${MARK}]`)) return;
     const items = [...menu.querySelectorAll('[role="menuitem"]')];
     const template = copyLinkOf(items) || items[0];
-    menu.append(...ACTIONS.map((action) => makeItem(template, action, trigger)));
+    menu.append(...enabledOptions(OPTIONS, disabled).map((option) => makeItem(template, option, trigger)));
     place(menu);
     // Une fois connecté, Twitter reconstruit les options du menu juste après l'avoir ouvert : les siennes
     // s'ajoutent alors après les nôtres. On les replace à chaque changement.

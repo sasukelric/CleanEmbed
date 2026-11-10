@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Dodaje „Kopiuj link FixupX” i „link bezpośredni” do menu Udostępnij w Twitterze / X. FixupX to usługa zewnętrzna (FxEmbed).",
+    "message": "Dodaje wszystkie linki FixupX (bezpośredni, galeria, tłumaczenie…) do menu Udostępnij Twittera / X. FixupX to usługa zewnętrzna.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

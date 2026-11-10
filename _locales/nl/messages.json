@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "Voegt ‘FixupX-link kopiëren’ en ‘directe link’ toe aan het deelmenu van Twitter / X. FixupX is een dienst van derden (FxEmbed).",
+    "message": "Voegt alle FixupX-links (direct, galerij, vertaald…) toe aan het deelmenu van Twitter / X. FixupX is een externe dienst.",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

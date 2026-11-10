@@ -4,7 +4,7 @@
     "description": "Extension name, shown in the browser and in the stores."
   },
   "extDescription": {
-    "message": "在 Twitter / X 的分享選單中加入「複製 FixupX 連結」和「直接連結」。FixupX 是第三方服務（FxEmbed）。",
+    "message": "在 Twitter / X 的分享選單中加入所有 FixupX 連結（直接、圖庫、純文字、拼貼、翻譯等）。FixupX 是第三方服務。",
     "description": "Extension description, shown in the add-ons manager and in the stores (max 132 characters)."
   }
 }

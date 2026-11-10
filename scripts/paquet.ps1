@@ -5,7 +5,7 @@
 # tar.exe (fourni avec Windows) écrit les chemins avec des « / », ce que demandent les boutiques.
 $ErrorActionPreference = 'Stop'
 $racine = Split-Path $PSScriptRoot -Parent
-$fichiers = 'manifest.json', 'LICENSE', 'THIRD_PARTY_NOTICES.md', '_locales', 'icons', 'src'
+$fichiers = 'manifest.json', 'LICENSE', 'THIRD_PARTY_NOTICES.md', '_locales', 'icons', 'options', 'src'
 $manifest = Get-Content (Join-Path $racine 'manifest.json') -Raw | ConvertFrom-Json
 $dist = Join-Path $racine 'dist'
 New-Item -ItemType Directory -Force $dist | Out-Null

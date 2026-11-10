@@ -32,3 +32,15 @@ test('chaque langue du script a son dossier _locales, et inversement', () => {
   const attendus = Object.keys(STRINGS).map((l) => versLocale[l] || l).sort();
   assert.deepEqual(dossiers, attendus);
 });
+
+test('chaque option du menu a son libellé et son infobulle', () => {
+  const { OPTIONS } = require('../src/links.js');
+  for (const option of OPTIONS) {
+    assert.ok(STRINGS.en[option.key], option.key);
+    assert.ok(STRINGS.en[option.key + 'Hint'], option.key + 'Hint');
+  }
+});
+
+test("le message de l'easter egg garde la place du domaine dans chaque langue", () => {
+  for (const [langue, textes] of Object.entries(STRINGS)) assert.ok(textes.copiedRare.includes('{host}'), langue);
+});
