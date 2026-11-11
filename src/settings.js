@@ -1,6 +1,10 @@
 // Réglages : les options du menu que l'utilisateur a décochées. « Copier le lien FixupX » reste toujours affiché.
 // On enregistre les options désactivées plutôt que les activées : une option ajoutée par une version future
 // apparaît donc d'office. Stockage « sync » : les réglages suivent le compte Firefox ou Chrome.
+//
+// Les appels écrivent chrome.storage en toutes lettres (Firefox connaît aussi cet espace de noms) : l'examen
+// automatique du Chrome Web Store cherche ce nom dans le code et, sans lui, refuse l'extension pour
+// « autorisation storage demandée mais pas utilisée ». Rappels plutôt que promesses : même comportement partout.
 (function (root) {
   'use strict';
 
@@ -13,27 +17,33 @@
     return options.filter((option) => option.key === ALWAYS_ON || !off.has(option.key));
   }
 
-  // undefined hors de l'extension (page web, tests Node)
-  function storageApi() {
-    const ext = root.browser || root.chrome;
-    return ext && ext.storage;
-  }
+  // faux hors de l'extension (page web, tests Node)
+  const hasStorage = () => typeof chrome !== 'undefined' && Boolean(chrome.storage);
+  const lastError = () => (chrome.runtime && chrome.runtime.lastError) || null;
 
-  async function loadDisabled() {
-    const storage = storageApi();
-    if (!storage) return [];
-    const stored = await storage.sync.get({ [STORAGE_KEY]: [] });
-    return Array.isArray(stored[STORAGE_KEY]) ? stored[STORAGE_KEY] : [];
+  function loadDisabled() {
+    if (!hasStorage()) return Promise.resolve([]);
+    return new Promise((resolve) => {
+      chrome.storage.sync.get({ [STORAGE_KEY]: [] }, (stored) => {
+        const list = !lastError() && stored && stored[STORAGE_KEY];
+        resolve(Array.isArray(list) ? list : []);
+      });
+    });
   }
 
   function saveDisabled(disabled) {
-    return storageApi().sync.set({ [STORAGE_KEY]: disabled.filter((key) => key !== ALWAYS_ON) });
+    return new Promise((resolve, reject) => {
+      chrome.storage.sync.set({ [STORAGE_KEY]: disabled.filter((key) => key !== ALWAYS_ON) }, () => {
+        const error = lastError();
+        if (error) reject(new Error(error.message));
+        else resolve();
+      });
+    });
   }
 
   function onDisabledChange(callback) {
-    const storage = storageApi();
-    if (!storage) return;
-    storage.onChanged.addListener((changes, area) => {
+    if (!hasStorage()) return;
+    chrome.storage.onChanged.addListener((changes, area) => {
       if (area === 'sync' && changes[STORAGE_KEY]) callback(changes[STORAGE_KEY].newValue || []);
     });
   }
